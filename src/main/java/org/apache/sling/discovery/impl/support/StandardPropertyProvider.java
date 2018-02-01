@@ -51,8 +51,11 @@ import org.osgi.service.http.HttpService;
            policy=ReferencePolicy.DYNAMIC)
 public class StandardPropertyProvider {
 
+    /** Official Endpoint service registration property fromhttp whiteboard spec */
+    private static final String REG_PROPERTY_ENDPOINTS = "osgi.http.endpoints";
+
     /** Endpoint service registration property from RFC 189 */
-    private static final String REG_PROPERTY_ENDPOINTS = "osgi.http.service.endpoints";
+    private static final String REG_PROPERTY_ENDPOINTS_RFC = "osgi.http.service.endpoints";
 
     private volatile long changeCount;
 
@@ -106,6 +109,7 @@ public class StandardPropertyProvider {
         this.propagationService = cc.getBundleContext().registerService(PropertyProvider.class.getName(),
                 new PropertyProvider() {
 
+                    @Override
                     public String getProperty(final String name) {
                         if ( InstanceDescription.PROPERTY_DESCRIPTION.equals(name) ) {
                             return settings.getSlingDescription();
@@ -133,7 +137,10 @@ public class StandardPropertyProvider {
      * Bind a http service
      */
     protected void bindHttpService(final ServiceReference reference) {
-        final String[] endpointUrls = toStringArray(reference.getProperty(REG_PROPERTY_ENDPOINTS));
+        String[] endpointUrls = toStringArray(reference.getProperty(REG_PROPERTY_ENDPOINTS));
+        if ( endpointUrls == null ) {
+            endpointUrls = toStringArray(reference.getProperty(REG_PROPERTY_ENDPOINTS_RFC));
+        }
         if ( endpointUrls != null ) {
             synchronized ( this.endpoints ) {
                 this.endpoints.put((Long)reference.getProperty(Constants.SERVICE_ID), endpointUrls);
