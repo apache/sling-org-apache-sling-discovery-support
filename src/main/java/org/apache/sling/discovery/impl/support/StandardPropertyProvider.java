@@ -51,7 +51,7 @@ import org.osgi.service.http.HttpService;
            policy=ReferencePolicy.DYNAMIC)
 public class StandardPropertyProvider {
 
-    /** Official Endpoint service registration property from http whiteboard spec */
+    /** Official endpoint service registration property from Http Whiteboard spec */
     private static final String REG_PROPERTY_ENDPOINTS = "osgi.http.endpoint";
 
     /** Endpoint service registration property from RFC 189 */
