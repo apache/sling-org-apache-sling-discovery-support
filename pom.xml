@@ -89,9 +89,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.dropwizard.metrics</groupId>
-            <artifactId>metrics-core</artifactId>
-            <version>3.1.0</version>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.commons.metrics</artifactId>
+            <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>
         <!-- Testing -->
