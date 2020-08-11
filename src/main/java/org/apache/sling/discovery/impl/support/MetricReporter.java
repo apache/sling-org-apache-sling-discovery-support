@@ -156,7 +156,7 @@ public class MetricReporter implements TopologyEventListener {
     private final AtomicInteger ownIsLeader = new AtomicInteger(0);
 
     /**
-     * There shouldn't be an aweful lot of properties, so int sounds more than enough
+     * There shouldn't be an awful lot of properties, so int sounds more than enough
      */
     private final AtomicInteger ownProperties = new AtomicInteger(0);
 
