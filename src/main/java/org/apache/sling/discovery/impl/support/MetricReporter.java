@@ -375,10 +375,10 @@ public class MetricReporter implements TopologyEventListener {
             final Collection<InstanceDescription> added = diff.added().get();
             final Collection<InstanceDescription> removed = diff.removed().get();
 
-            if (added != null && added.size() > 0) {
+            if (added.size() > 0) {
                 localClusterJoins.addAndGet(added.size());
             }
-            if (removed != null && removed.size() > 0) {
+            if (removed.size() > 0) {
                 localClusterLeaves.addAndGet(removed.size());
             }
         }
