@@ -311,7 +311,7 @@ public class MetricReporter implements TopologyEventListener {
                 return;
             }
             case TOPOLOGY_CHANGING: {
-                handleChanging(event.getOldView());
+                handleChanging();
                 return;
             }
             case TOPOLOGY_CHANGED: {
@@ -319,7 +319,7 @@ public class MetricReporter implements TopologyEventListener {
                 return;
             }
             case PROPERTIES_CHANGED: {
-                handlePropertiesChanged(event.getOldView(), event.getNewView());
+                handlePropertiesChanged(event.getNewView());
                 return;
             }
             }
@@ -340,7 +340,7 @@ public class MetricReporter implements TopologyEventListener {
         updateRemote(newView);
     }
 
-    private void handleChanging(TopologyView oldView) {
+    private void handleChanging() {
         changingEvents.incrementAndGet();
         topologyIsUndefined.set(1);
     }
@@ -357,7 +357,7 @@ public class MetricReporter implements TopologyEventListener {
         updateRemote(newView);
     }
 
-    private void handlePropertiesChanged(TopologyView oldView, TopologyView newView) {
+    private void handlePropertiesChanged(TopologyView newView) {
         propertyChangedEvents.incrementAndGet();
 
         updateProperties(newView);
