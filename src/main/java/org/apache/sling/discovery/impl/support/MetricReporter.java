@@ -173,33 +173,103 @@ public class MetricReporter implements TopologyEventListener {
     protected void activate() {
         logger.debug("activate: start");
 
-        createGauge(METRICS_NAME_TOPOLOGY_INIT_EVENTS, (Gauge<Integer>) initEvents::get);
+        createGauge(METRICS_NAME_TOPOLOGY_INIT_EVENTS, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return initEvents.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_TOPOLOGY_CHANGING_EVENTS, (Gauge<Integer>) changingEvents::get);
+        createGauge(METRICS_NAME_TOPOLOGY_CHANGING_EVENTS, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return changingEvents.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_TOPOLOGY_CHANGED_EVENTS, (Gauge<Integer>) changedEvents::get);
+        createGauge(METRICS_NAME_TOPOLOGY_CHANGED_EVENTS, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return changedEvents.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_PROPERTY_CHANGED_EVENTS, (Gauge<Long>) propertyChangedEvents::get);
+        createGauge(METRICS_NAME_PROPERTY_CHANGED_EVENTS, new Gauge<Long>() {
+            @Override
+            public Long getValue() {
+                return propertyChangedEvents.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_TOPOLOGY_IS_UNDEFINED, (Gauge<Integer>) topologyIsUndefined::get);
+        createGauge(METRICS_NAME_TOPOLOGY_IS_UNDEFINED, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return topologyIsUndefined.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_LOCAL_CLUSTER_INSTANCES, (Gauge<Integer>) localClusterInstances::get);
+        createGauge(METRICS_NAME_LOCAL_CLUSTER_INSTANCES, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return localClusterInstances.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_LOCAL_CLUSTER_JOINS, (Gauge<Integer>) localClusterJoins::get);
+        createGauge(METRICS_NAME_LOCAL_CLUSTER_JOINS, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return localClusterJoins.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_LOCAL_CLUSTER_LEAVES, (Gauge<Integer>) localClusterLeaves::get);
+        createGauge(METRICS_NAME_LOCAL_CLUSTER_LEAVES, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return localClusterLeaves.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_LOCAL_CLUSTER_LEADER_SWITCHES, (Gauge<Integer>) localClusterLeaderSwitches::get);
+        createGauge(METRICS_NAME_LOCAL_CLUSTER_LEADER_SWITCHES, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return localClusterLeaderSwitches.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_LOCAL_CLUSTER_PROPERTIES, (Gauge<Integer>) localClusterProperties::get);
+        createGauge(METRICS_NAME_LOCAL_CLUSTER_PROPERTIES, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return localClusterProperties.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_OWN_IS_LEADER, (Gauge<Integer>) ownIsLeader::get);
+        createGauge(METRICS_NAME_OWN_IS_LEADER, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return ownIsLeader.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_OWN_PROPERTIES, (Gauge<Integer>) ownProperties::get);
+        createGauge(METRICS_NAME_OWN_PROPERTIES, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return ownProperties.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_REMOTE_CLUSTERS, (Gauge<Integer>) remoteClusters::get);
+        createGauge(METRICS_NAME_REMOTE_CLUSTERS, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return remoteClusters.get();
+            }
+        });
 
-        createGauge(METRICS_NAME_REMOTE_INSTANCES, (Gauge<Integer>) remoteInstances::get);
+        createGauge(METRICS_NAME_REMOTE_INSTANCES, new Gauge<Integer>() {
+            @Override
+            public Integer getValue() {
+                return remoteInstances.get();
+            }
+        });
 
         logger.info("activate: done.");
     }
