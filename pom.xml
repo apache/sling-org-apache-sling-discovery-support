@@ -22,13 +22,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.sling</groupId>
-        <artifactId>sling</artifactId>
-        <version>26</version>
+        <artifactId>sling-bundle-parent</artifactId>
+        <version>47</version>
         <relativePath />
     </parent>
 
     <artifactId>org.apache.sling.discovery.support</artifactId>
-    <packaging>bundle</packaging>
     <version>1.0.7-SNAPSHOT</version>
 
     <name>Apache Sling Discovery Support Bundle</name>
@@ -36,23 +35,23 @@
         Supporting services for the discovery
     </description>
 
+    <properties>
+        <project.build.outputTimestamp>1</project.build.outputTimestamp>
+        <sling.java.version>8</sling.java.version>
+    </properties>
+
     <scm>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-discovery-support.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-discovery-support.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=sling-org-apache-sling-discovery-support.git</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-scr-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
@@ -64,11 +63,11 @@
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
+            <artifactId>osgi.core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.compendium</artifactId>
+            <artifactId>osgi.cmpn</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.sling</groupId>
