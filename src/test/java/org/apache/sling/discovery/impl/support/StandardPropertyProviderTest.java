@@ -41,13 +41,27 @@ public class StandardPropertyProviderTest {
         final SlingSettingsService settings = new SlingSettingsServiceImpl("");
         context.registerService(settings);
         standardPropertyProvider = context.registerInjectActivateService(new StandardPropertyProvider(),
-                "dummy.property", "Test");
+                "test.property", "Test");
     }
 
     @Test
-    public void testBindHttpService() {
+    public void testNotNull() {
         ServiceReference reference1 = Mockito.mock(ServiceReference.class);
+
+        //REG_PROPERTY_ENDPOINTS is Empty
+        standardPropertyProvider.bindHttpService(reference1);
+        assertNotNull(standardPropertyProvider);
+        standardPropertyProvider.unbindHttpService(reference1);
+
+        //REG_PROPERTY_ENDPOINTS is String
         Mockito.when(reference1.getProperty("osgi.http.endpoint")).thenReturn("http://localhost:8080/");
+
+        standardPropertyProvider.bindHttpService(reference1);
+        assertNotNull(standardPropertyProvider);
+        standardPropertyProvider.unbindHttpService(reference1);
+
+        //REG_PROPERTY_ENDPOINTS is String[]
+        Mockito.when(reference1.getProperty("osgi.http.endpoint")).thenReturn(new String[]{"http://localhost:8080/"});
 
         standardPropertyProvider.bindHttpService(reference1);
         assertNotNull(standardPropertyProvider);

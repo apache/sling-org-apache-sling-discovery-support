@@ -105,21 +105,17 @@ public class StandardPropertyProvider {
     @Modified
     protected void modified(final ComponentContext cc) {
         this.propagationService = cc.getBundleContext().registerService(PropertyProvider.class.getName(),
-                new PropertyProvider() {
-
-                    @Override
-                    public String getProperty(final String name) {
-                        if ( InstanceDescription.PROPERTY_DESCRIPTION.equals(name) ) {
-                            return settings.getSlingDescription();
-                        }
-                        if ( InstanceDescription.PROPERTY_NAME.equals(name) ) {
-                            return settings.getSlingName();
-                        }
-                        if ( InstanceDescription.PROPERTY_ENDPOINTS.equals(name) ) {
-                            return endpointString;
-                        }
-                        return null;
+                (PropertyProvider) name -> {
+                    if ( InstanceDescription.PROPERTY_DESCRIPTION.equals(name) ) {
+                        return settings.getSlingDescription();
                     }
+                    if ( InstanceDescription.PROPERTY_NAME.equals(name) ) {
+                        return settings.getSlingName();
+                    }
+                    if ( InstanceDescription.PROPERTY_ENDPOINTS.equals(name) ) {
+                        return endpointString;
+                    }
+                    return null;
                 }, this.getRegistrationProperties());
     }
 
