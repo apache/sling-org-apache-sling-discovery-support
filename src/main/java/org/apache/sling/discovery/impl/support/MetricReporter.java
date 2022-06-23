@@ -24,17 +24,16 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.discovery.ClusterView;
 import org.apache.sling.discovery.InstanceDescription;
 import org.apache.sling.discovery.TopologyEvent;
 import org.apache.sling.discovery.TopologyEventListener;
 import org.apache.sling.discovery.TopologyView;
 import org.apache.sling.discovery.commons.InstancesDiff;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,8 +45,7 @@ import com.codahale.metrics.MetricRegistry;
  * (by virtue of being a TopologyEventListener) and exposing
  * metrics (via dropwizard).
  */
-@Service(value = { TopologyEventListener.class })
-@Component(immediate = true)
+@Component(immediate = true, service = { TopologyEventListener.class })
 public class MetricReporter implements TopologyEventListener {
 
     // event counters
@@ -75,7 +73,7 @@ public class MetricReporter implements TopologyEventListener {
     @Reference(target = "(name=sling)")
     MetricRegistry metricRegistry;
 
-    private final List<String> registeredGaugeNameList = new LinkedList<String>();
+    private final List<String> registeredGaugeNameList = new LinkedList<>();
 
     /** 
      * for init there would really only be 2 values needed: 0 and 1
@@ -175,103 +173,33 @@ public class MetricReporter implements TopologyEventListener {
     protected void activate() {
         logger.debug("activate: start");
 
-        createGauge(METRICS_NAME_TOPOLOGY_INIT_EVENTS, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return initEvents.get();
-            }
-        });
+        createGauge(METRICS_NAME_TOPOLOGY_INIT_EVENTS, (Gauge<Integer>) initEvents::get);
 
-        createGauge(METRICS_NAME_TOPOLOGY_CHANGING_EVENTS, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return changingEvents.get();
-            }
-        });
+        createGauge(METRICS_NAME_TOPOLOGY_CHANGING_EVENTS, (Gauge<Integer>) changingEvents::get);
 
-        createGauge(METRICS_NAME_TOPOLOGY_CHANGED_EVENTS, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return changedEvents.get();
-            }
-        });
+        createGauge(METRICS_NAME_TOPOLOGY_CHANGED_EVENTS, (Gauge<Integer>) changedEvents::get);
 
-        createGauge(METRICS_NAME_PROPERTY_CHANGED_EVENTS, new Gauge<Long>() {
-            @Override
-            public Long getValue() {
-                return propertyChangedEvents.get();
-            }
-        });
+        createGauge(METRICS_NAME_PROPERTY_CHANGED_EVENTS, (Gauge<Long>) propertyChangedEvents::get);
 
-        createGauge(METRICS_NAME_TOPOLOGY_IS_UNDEFINED, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return topologyIsUndefined.get();
-            }
-        });
+        createGauge(METRICS_NAME_TOPOLOGY_IS_UNDEFINED, (Gauge<Integer>) topologyIsUndefined::get);
 
-        createGauge(METRICS_NAME_LOCAL_CLUSTER_INSTANCES, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return localClusterInstances.get();
-            }
-        });
+        createGauge(METRICS_NAME_LOCAL_CLUSTER_INSTANCES, (Gauge<Integer>) localClusterInstances::get);
 
-        createGauge(METRICS_NAME_LOCAL_CLUSTER_JOINS, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return localClusterJoins.get();
-            }
-        });
+        createGauge(METRICS_NAME_LOCAL_CLUSTER_JOINS, (Gauge<Integer>) localClusterJoins::get);
 
-        createGauge(METRICS_NAME_LOCAL_CLUSTER_LEAVES, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return localClusterLeaves.get();
-            }
-        });
+        createGauge(METRICS_NAME_LOCAL_CLUSTER_LEAVES, (Gauge<Integer>) localClusterLeaves::get);
 
-        createGauge(METRICS_NAME_LOCAL_CLUSTER_LEADER_SWITCHES, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return localClusterLeaderSwitches.get();
-            }
-        });
+        createGauge(METRICS_NAME_LOCAL_CLUSTER_LEADER_SWITCHES, (Gauge<Integer>) localClusterLeaderSwitches::get);
 
-        createGauge(METRICS_NAME_LOCAL_CLUSTER_PROPERTIES, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return localClusterProperties.get();
-            }
-        });
+        createGauge(METRICS_NAME_LOCAL_CLUSTER_PROPERTIES, (Gauge<Integer>) localClusterProperties::get);
 
-        createGauge(METRICS_NAME_OWN_IS_LEADER, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return ownIsLeader.get();
-            }
-        });
+        createGauge(METRICS_NAME_OWN_IS_LEADER, (Gauge<Integer>) ownIsLeader::get);
 
-        createGauge(METRICS_NAME_OWN_PROPERTIES, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return ownProperties.get();
-            }
-        });
+        createGauge(METRICS_NAME_OWN_PROPERTIES, (Gauge<Integer>) ownProperties::get);
 
-        createGauge(METRICS_NAME_REMOTE_CLUSTERS, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return remoteClusters.get();
-            }
-        });
+        createGauge(METRICS_NAME_REMOTE_CLUSTERS, (Gauge<Integer>) remoteClusters::get);
 
-        createGauge(METRICS_NAME_REMOTE_INSTANCES, new Gauge<Integer>() {
-            @Override
-            public Integer getValue() {
-                return remoteInstances.get();
-            }
-        });
+        createGauge(METRICS_NAME_REMOTE_INSTANCES, (Gauge<Integer>) remoteInstances::get);
 
         logger.info("activate: done.");
     }

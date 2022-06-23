@@ -22,13 +22,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.sling</groupId>
-        <artifactId>sling</artifactId>
-        <version>26</version>
-        <relativePath />
+        <artifactId>sling-bundle-parent</artifactId>
+        <version>48</version>
     </parent>
 
     <artifactId>org.apache.sling.discovery.support</artifactId>
-    <packaging>bundle</packaging>
     <version>1.0.7-SNAPSHOT</version>
 
     <name>Apache Sling Discovery Support Bundle</name>
@@ -36,26 +34,18 @@
         Supporting services for the discovery
     </description>
 
+    <properties>
+        <project.build.outputTimestamp>1</project.build.outputTimestamp>
+        <sling.java.version>8</sling.java.version>
+    </properties>
+
     <scm>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-discovery-support.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-discovery-support.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=sling-org-apache-sling-discovery-support.git</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-scr-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-            </plugin>
-        </plugins>
-    </build>
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -64,11 +54,16 @@
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
+            <artifactId>osgi.core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.compendium</artifactId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.http</artifactId>
+            <version>1.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.sling</groupId>
@@ -79,7 +74,7 @@
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.settings</artifactId>
-            <version>1.3.0</version>
+            <version>1.4.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -98,6 +93,12 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.testing.osgi-mock.junit4</artifactId>
+            <version>3.2.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
